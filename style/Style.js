@@ -4,14 +4,15 @@ let marginTop;
 const style = StyleSheet.create({
   headline: {
     fontFamily: "Quicksand_500Medium",
-   
+
     maxWidth: 350,
     textAlign: "center",
     fontSize: 30,
     color: "#9E8142",
     marginTop: { marginTop },
     justifyContent: "center",
-   
+    marginLeft: 25,
+    marginRight: 25,
   },
   container: {
     alignItems: "center",
@@ -29,7 +30,6 @@ const style = StyleSheet.create({
     borderTopWidth: 50,
 
     borderColor: Color.myBgColor,
-   
   },
   image: {
     width: "59%",
@@ -44,6 +44,14 @@ const style = StyleSheet.create({
     overflow: "hidden",
 
     margin: "10%",
+  },
+  smallText: {
+    color: Color.color2,
+    textAlign: "center",
+    fontFamily: "Quicksand_500Medium",
+    fontSize: 18,
+    maxWidth: 300,
+    marginBottom: 100,
   },
 });
 

@@ -4,39 +4,64 @@ import * as ImagePicker from "expo-image-picker";
 import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import Color from "../style/Color";
 import { UseContextHook } from "../store/context/ContextProvider";
+import * as ImageManipulator from "expo-image-manipulator";
 const windowWidth = Dimensions.get("window").width;
 const ImageUpload = () => {
-  let { image, setImage } = UseContextHook();
+  let {
+    image,
+    setImage,
+    actionBtnOpacity,
+    setActionButtonOpacity,
+    userData,
+    setUserData,
+    base64,
+    setBase64,
+  } = UseContextHook();
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
+      maxWidth: 300,
+      maxHeight: 350,
+      quality: 0.1,
+      base64: true,
     });
-
-    console.log("setImage", setImage);
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+      setBase64(result.assets[0].base64);
+
+      setActionButtonOpacity(1);
     }
   };
 
   const removeImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
+      maxWidth: 300,
+      maxHeight: 350,
+      quality: 0.5,
+      base64: true,
     });
 
-    console.log(result);
+    // const manipResult = await ImageManipulator.manipulateAsync(
+    //   result.uri,
+    //   [{ resize: { height: 50, width: 30 } }],
+    //   { compress: 0.05, format: ImageManipulator.SaveFormat.base64 },
+    // );
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+      setBase64(result.assets[0].base64);
+      // setBase64(manipResult.uri);
+      setActionButtonOpacity(1);
+      // setImage(manipResult.uri);
     }
   };
 
@@ -56,8 +81,8 @@ const ImageUpload = () => {
               style={{
                 width: 300,
                 height: 350,
-                borderRadius: "20%",
-                margin: "10%",
+                borderRadius: 20,
+                margin: 35,
                 borderWidth: 0.8,
                 borderColor: Color.color1,
               }}
@@ -76,7 +101,7 @@ const ImageUpload = () => {
             />
           </View>
           <Text style={design.smallText}>
-            1/3 Share your fav pic to connect with like-minded active friends!
+            Share your fav pic to connect with like-minded active friends!
           </Text>
         </View>
       )}
@@ -87,6 +112,8 @@ const ImageUpload = () => {
 const design = StyleSheet.create({
   smallText: {
     color: Color.color2,
+
+    color: Color.fontBodyColor,
     textAlign: "center",
     fontFamily: "Quicksand_500Medium",
     fontSize: 18,
@@ -130,13 +157,13 @@ const design = StyleSheet.create({
   square: {
     width: 300,
     height: 350,
-    borderRadius: 100 / 2,
+    borderRadius: 30,
 
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: Color.color3,
 
-    margin: "10%",
+    margin: 35,
   },
   removeIcon: {
     color: Color.myBgColor,

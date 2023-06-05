@@ -28,7 +28,7 @@ const style = StyleSheet.create({
     fontFamily: "Quicksand_500Medium",
     width: "80%",
     textAlign: "center",
-    fontSize: "30%",
+    fontSize: 30,
     color: "#9E8142",
     marginTop: "10%",
   },
