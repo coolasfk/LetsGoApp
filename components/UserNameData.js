@@ -78,7 +78,8 @@ const UserNameData = () => {
     console.log("newCity", newCity);
 
     setUserLocation({
-      location: { type: "Point", coordinates: coordinates, city: newCity },
+      type: "Point",
+      coordinates: coordinates,
     });
 
     console.log("------userLocation", userLocation);

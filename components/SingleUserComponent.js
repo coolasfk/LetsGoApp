@@ -15,7 +15,7 @@ import React from "react";
 
 const DATA = [
   {
-    id: 22292,
+    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
     name: "Eva",
     age: "18",
     sports: ["snowboarding", "hiking"],
@@ -29,7 +29,7 @@ const DATA = [
     colorStars6: Color.color1,
   },
   {
-    id: 22445,
+    id: "fd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
     name: "Beata",
     age: "39",
     sports: ["snowboarding", "hiking"],
@@ -43,7 +43,21 @@ const DATA = [
     colorStars6: Color.color1,
   },
   {
-    id: 2092,
+    id: "ed7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    name: "Stefan",
+    age: "28",
+    sports: ["snowboarding", "hiking"],
+    image: "image goes here",
+    location: ["longitude", "latitute"],
+    colorStars1: Color.color1,
+    colorStars2: Color.color1,
+    colorStars3: Color.color1,
+    colorStars4: Color.color1,
+    colorStars5: Color.color1,
+    colorStars6: Color.color1,
+  },
+  {
+    id: "cd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
     name: "Stefan",
     age: "28",
     sports: ["snowboarding", "hiking"],
@@ -71,63 +85,92 @@ const Item = ({
   colorStars5,
   colorStars6,
   title,
-}) => (
-  <View style={styles.mainContainer}>
-    <Image
-      source={{ uri: image }}
-      style={{
-        width: 300,
-        height: 300,
-        borderRadius: 10,
-        margin: 35,
-        borderWidth: 0.8,
-        borderColor: Color.color1,
-      }}
-    />
-    <View style={styles.containerYesNo}>
-      <View style={styles.no}>
-        <AntDesign name="close" size={24} color="black" />
+}) => {
+  return (
+    <View style={styles.mainContainer}>
+      <Image
+        source={{ uri: image }}
+        style={{
+          width: 300,
+          height: 300,
+          borderRadius: 10,
+          margin: 35,
+          borderWidth: 0.8,
+          borderColor: Color.color1,
+        }}
+      />
+      <View style={styles.containerYesNo}>
+        <View style={styles.no}>
+          <AntDesign name="close" size={24} color="black" />
+        </View>
+        <View style={styles.yes}>
+          <AntDesign name="check" size={24} color="black" />
+        </View>
       </View>
-      <View style={styles.yes}>
-        <AntDesign name="check" size={24} color="black" />
-      </View>
-    </View>
-    <View>
-      <Text style={Style.headline}>
-        {name}, {age}
-      </Text>
+      <View>
+        <Text style={[Style.headline, { marginTop: 0, marginBottom: 10 }]}>
+          {name}, {age}
+        </Text>
 
-      <View style={styles.sportContainer}>
-        <View style={styles.sport}>
-          <Text style={styles.text}>snowboarding</Text>
-          <View style={styles.stars}>
-            <AntDesign name="star" margin={1} size={16} color={Color.color1} />
-            <AntDesign name="star" margin={1} size={16} color={Color.color1} />
-            <AntDesign name="star" margin={1} size={16} color={Color.color1} />
+        <View style={styles.sportContainer}>
+          <View style={styles.sport}>
+            <Text style={styles.text}>snowboarding</Text>
+            <View style={styles.stars}>
+              <AntDesign
+                name="star"
+                margin={1}
+                size={16}
+                color={Color.color1}
+              />
+              <AntDesign
+                name="star"
+                margin={1}
+                size={16}
+                color={Color.color1}
+              />
+              <AntDesign
+                name="star"
+                margin={1}
+                size={16}
+                color={Color.color1}
+              />
+            </View>
           </View>
-        </View>
-        <View style={styles.sport}>
-          <Text style={styles.text}>surfing</Text>
-          <View style={styles.stars}>
-            <AntDesign name="star" margin={1} size={16} color={Color.color1} />
-            <AntDesign name="star" margin={1} size={16} color={Color.color1} />
-            <AntDesign name="star" margin={1} size={16} color={Color.color1} />
+          <View style={styles.sport}>
+            <Text style={styles.text}>surfing</Text>
+            <View style={styles.stars}>
+              <AntDesign
+                name="star"
+                margin={1}
+                size={16}
+                color={Color.color1}
+              />
+              <AntDesign
+                name="star"
+                margin={1}
+                size={16}
+                color={Color.color1}
+              />
+              <AntDesign
+                name="star"
+                margin={1}
+                size={16}
+                color={Color.color1}
+              />
+            </View>
           </View>
         </View>
       </View>
     </View>
-  </View>
-);
-const SingleUserComponent = (onPress, cta) => {
+  );
+};
+const SingleUserComponent = ({ onPress, cta, users }) => {
   let { image } = UseContextHook();
-  const message = () => {
-    console.log("message");
-  };
 
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={DATA}
+        data={users}
         renderItem={({ item }) => <Item name={item.name} age={item.age} />}
         keyExtractor={(item) => item.id}
       />

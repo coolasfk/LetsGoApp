@@ -9,11 +9,8 @@ const AcceptConditions = () => {
   const [checked, setChecked] = useState("first");
   let {
     userData,
-
     base64,
-
     chosenSports,
-
     setLocation,
     userLocation,
     setUserLocation,
@@ -51,16 +48,17 @@ const AcceptConditions = () => {
     
 10. Account Responsibility: Users must confirm that they are responsible for maintaining the security of their account and will not share their login credentials with others.`;
 
-  userData.image = base64;
-  userData.sports = chosenSports;
-  userData.location = userLocation;
-  fetch("https://lestgo--coolasfk.repl.co/users", {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(userData),
-  }).catch((error) => {
-    console.error("error:", error);
-  });
+  // userData.image = base64;
+  // userData.sports = chosenSports;
+  // userData.location = userLocation;
+  // console.log(userData);
+  // fetch("https://lestgo--coolasfk.repl.co/users", {
+  //   method: "POST",
+  //   headers: { "content-type": "application/json" },
+  //   body: JSON.stringify(userData),
+  // }).catch((error) => {
+  //   console.error("error:", error);
+  // });
 
   return (
     <View style={styles.mainContainer}>

@@ -4,10 +4,38 @@ import { useState } from "react";
 import { UseContextHook } from "../store/context/ContextProvider";
 import BackArrow from "../components/BackArrow";
 import SingleUserComponent from "./SingleUserComponent";
-
+import axios from "axios";
 import Style from "../style/Style";
+//  fetch("lestgo.coolasfk.repl.co/users")
 
-const FindBuddy = ({ navigation }) => {
+const backendUrl = "https://lestgo--coolasfk.repl.co/users";
+const FindBuddy = () => {
+  const [fetchedUsers, setFetchedUsers] = useState([]);
+  let fetchUsers = async () => {
+    console.log("fetch started");
+
+    try {
+      const respose = await axios.get("https://lestgo--coolasfk.repl.co/users");
+      let returnedUsers = [];
+      console.log(respose.data[0])
+      for (let user of respose.data) {
+        const tempUser = {
+          id: user._id,
+          name: user.name,
+          location: user.location,
+          age: user.age,
+          sports: user.sports,
+        };
+        returnedUsers.push(tempUser);
+      }
+      console.log(returnedUsers);
+      setFetchedUsers(returnedUsers);
+    } catch (e) {
+      console.log("error fetching");
+    }
+    //return returnedUsers;
+  };
+
   let {
     location,
     setLocation,
@@ -27,42 +55,39 @@ const FindBuddy = ({ navigation }) => {
 
   return (
     <View style={styles.mainContainer}>
-      <View
+      <Image
+        source={{ uri: image }}
         style={{
-          position: "absolute",
-          top: 50,
-          left: 350,
-          width: 100,
-          height: 100,
+          width: 80,
+          height: 80,
+          borderRadius: 50,
+          marginTop: 80,
+          borderWidth: 0.8,
+          borderColor: Color.color1,
         }}
-      >
-        <BackArrow onPress={getBack} />
-      </View>
-      <View>
-        <Text style={[Style.headline, { marginTop: 100 }]}>
-          Hey, {name}! Let's go!
-        </Text>
-      </View>
-      <View style={styles.yourProfile}>
-        <Image
-          source={{ uri: image }}
-          style={{
-            width: 80,
-            height: 80,
-            borderRadius: 50,
-            margin: 35,
-            borderWidth: 0.8,
-            borderColor: Color.color1,
-          }}
-        />
-        <Text>Your {newCity}</Text>
-        <Text>My sports: snowboarding & hiking</Text>
-        {/* <Button title="update your location" onPress={letsgo}></Button> */}
-      </View>
+      />
+      <Text style={[Style.headline, { marginTop: 20 }]}>
+        Hey, {name}! Let's go!
+      </Text>
 
-      <View>
-        <SingleUserComponent />
+      <View onPress={fetchUsers} style={styles.newFriendsContainer}>
+        <View style={styles.friendsBtn}>
+          <Button
+            title="New Friends"
+            onPress={fetchUsers}
+            style={[Style.smallText, { marginBottom: 0 }]}
+          />
+        </View>
+        <View style={styles.friendsBtn}>
+          <Button
+            title="Old Friends"
+            onPress={fetchUsers}
+            style={[Style.smallText, { marginBottom: 0 }]}
+          />
+        </View>
+        <View></View>
       </View>
+      <SingleUserComponent users={fetchedUsers} />
     </View>
   );
 };
@@ -71,8 +96,8 @@ const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: Color.myBgColor,
     alignItems: "center",
+    width: "100%",
 
-    // justifyContent: "center",
     justifyItems: "center",
     height: "100%",
   },
@@ -84,12 +109,43 @@ const styles = StyleSheet.create({
   yourProfile: {
     borderWidth: "1px",
     width: "100%",
-    flexDirection: "row",
-    justifyItems: "center",
-    marginTop: 20,
 
-    marginLeft: 20,
-    marginRight: 20,
+    // justifyItems: "center",
+    // justifyContent: "center",
+    marginTop: 20,
+    alignContent: "center",
+  },
+  newFriendsContainer: {
+    flexDirection: "row",
+  },
+
+  pressed: {
+    opacity: 0.7,
+    transform: "translateY(2px)",
+  },
+  notCompleted: {
+    opacity: 0.3,
+  },
+
+  friendsBtn: {
+    marginTop: 20,
+    marginBottom: 20,
+    marginLeft: 5,
+    marginRight: 5,
+
+    paddingTop: "3,5%",
+    paddingBottom: "3,5%",
+    paddingLeft: "10%",
+    paddingRight: "10%",
+    borderWidth: 3,
+    borderRadius: "60%",
+    borderColor: "#9E8142",
+    marginBottom: "2%",
+
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 export default FindBuddy;

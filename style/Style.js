@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import Color from "./Color";
-let marginTop;
+
 const style = StyleSheet.create({
   headline: {
     fontFamily: "Quicksand_500Medium",
@@ -9,7 +9,7 @@ const style = StyleSheet.create({
     textAlign: "center",
     fontSize: 30,
     color: "#9E8142",
-    marginTop: { marginTop },
+    marginTop: 50,
     justifyContent: "center",
     marginLeft: 25,
     marginRight: 25,
